@@ -107,3 +107,11 @@ waste/
 - For images outside the training categories, the model will still return a prediction, but it may be labeled as `"uncertain"` if confidence is low.
 
 --- 
+
+## 📦 Model & Dataset Downloads
+
+To use the model and dataset, download them from the links below or let the script auto-download:
+
+- 🧠 `model1.keras`: [Download from Google Drive](https://drive.google.com/file/d/1EEVdZIccpaoae4YXqufto06sVf7kgdid/view?usp=sharing)
+- 🧠 `model2.h5`: [Download from Google Drive](https://drive.google.com/file/d/13adspLBtZpSoABp4VkWjBITwWvelft6x/view?usp=sharing)
+- 📁 `dataset.zip`: [Download from Google Drive](https://drive.google.com/file/d/1Ifv5aCXVo0TDHK8K8XsrF77dk7rr83p4/view?usp=sharing) 
