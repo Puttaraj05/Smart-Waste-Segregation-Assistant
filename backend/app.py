@@ -1,9 +1,30 @@
 from fastapi import FastAPI, UploadFile, File, Form, HTTPException
 import os
+import gdown
+import zipfile
 from tensorflow import keras
 from PIL import Image
 import numpy as np
 import io
+
+# Create folders if needed
+os.makedirs("models", exist_ok=True)
+os.makedirs("data", exist_ok=True)
+
+# Download files if they don’t exist
+if not os.path.exists("models/model1.keras"):
+    gdown.download("https://drive.google.com/uc?id=1EEVdZIccpaoae4YXqufto06sVf7kgdid", "models/model1.keras", quiet=False)
+
+if not os.path.exists("models/model2.h5"):
+    gdown.download("https://drive.google.com/uc?id=13adspLBtZpSoABp4VkWjBITwWvelft6x", "models/model2.h5", quiet=False)
+
+if not os.path.exists("data/dataset.zip"):
+    gdown.download("https://drive.google.com/uc?id=1Ifv5aCXVo0TDHK8K8XsrF77dk7rr83p4", "data/dataset.zip", quiet=False)
+
+# Extract dataset if not already extracted
+if os.path.exists("data/dataset.zip") and not os.path.exists("data/dataset"):
+    with zipfile.ZipFile("data/dataset.zip", 'r') as zip_ref:
+        zip_ref.extractall("data/")
 
 app = FastAPI()
 
