@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+tensorflow
+pillow
+numpy
+datasets
+scikit-learn
+matplotlib
+seaborn 
