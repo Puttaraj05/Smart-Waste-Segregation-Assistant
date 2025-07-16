@@ -10,6 +10,7 @@ import io
 # Create folders if needed
 os.makedirs("models", exist_ok=True)
 os.makedirs("data", exist_ok=True)
+os.makedirs("backend/model", exist_ok=True)
 
 # Download files if they don’t exist
 if not os.path.exists("models/model1.keras"):
@@ -20,6 +21,9 @@ if not os.path.exists("models/model2.h5"):
 
 if not os.path.exists("data/dataset.zip"):
     gdown.download("https://drive.google.com/uc?id=1Ifv5aCXVo0TDHK8K8XsrF77dk7rr83p4", "data/dataset.zip", quiet=False)
+
+if not os.path.exists("backend/model/waste_model_improved.h5"):
+    gdown.download("https://drive.google.com/uc?id=13adspLBtZpSoABp4VkWjBITwWvelft6x", "backend/model/waste_model_improved.h5", quiet=False)
 
 # Extract dataset if not already extracted
 if os.path.exists("data/dataset.zip") and not os.path.exists("data/dataset"):
@@ -91,7 +95,7 @@ async def predict(file: UploadFile = File(...)):
         pred_confidence = float(probabilities[pred_index])
         class_info = custom_class_map.get(pred_class, {"tags": [], "description": ""})
 
-        CONFIDENCE_THRESHOLD = 0.6  # Set your threshold here
+        CONFIDENCE_THRESHOLD = 0.7  # Set your threshold here
 
         if pred_confidence < CONFIDENCE_THRESHOLD:
             return {
