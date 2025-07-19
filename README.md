@@ -1,117 +1,231 @@
-# Smart Waste Segregation Assistant
+# Waste Classification AI Web Application
 
-This project is an AI-powered web application that helps users sort waste at home using image classification (recyclable, organic, hazardous, etc.).
+A modern web application that uses AI to classify waste materials and provide recycling guidance. Built with FastAPI backend and React frontend.
+
+## Features
+
+- 🖼️ **Image Upload**: Drag & drop or click to upload waste images
+- 🤖 **AI Classification**: Powered by TensorFlow/Keras model
+- ♻️ **Recycling Guidance**: Detailed information about waste types and disposal methods
+- 📊 **Confidence Scores**: Visual representation of classification confidence
+- 🎨 **Modern UI**: Beautiful, responsive design with Tailwind CSS
+- 📱 **Mobile Friendly**: Works seamlessly on all devices
+
+## Supported Waste Types
+
+- **Biodegradable**: Natural materials that break down safely
+- **Cardboard**: Recyclable paper-based material
+- **Glass**: Recyclable glass containers
+- **Metal**: Recyclable metal items (cans, foil)
+- **Organic**: Food waste suitable for composting
+- **Paper**: Recyclable paper products
+- **Plastic**: Various plastic types (some recyclable)
+- **Trash**: General waste for landfill
+
+## Tech Stack
+
+### Backend
+- **FastAPI**: Modern Python web framework
+- **TensorFlow/Keras**: AI model for image classification
+- **Pillow**: Image processing
+- **NumPy**: Numerical computations
+
+### Frontend
+- **React**: Modern JavaScript framework
+- **Vite**: Fast build tool and dev server
+- **Tailwind CSS**: Utility-first CSS framework
+- **Axios**: HTTP client for API calls
+- **Lucide React**: Beautiful icons
+
+## Prerequisites
+
+- Python 3.8+
+- Node.js 16+
+- npm or yarn
+
+## Installation & Setup
+
+### 1. Clone the Repository
+
+```bash
+git clone <repository-url>
+cd waste
+```
+
+### 2. Backend Setup
+
+```bash
+# Navigate to backend directory
+cd backend
+
+# Create virtual environment
+python -m venv venv
+
+# Activate virtual environment
+# On Windows:
+venv\Scripts\activate
+# On macOS/Linux:
+source venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+```
+
+### 3. Frontend Setup
+
+```bash
+# Navigate to frontend directory
+cd frontend
+
+# Install dependencies
+npm install
+```
+
+## Running the Application
+
+### 1. Start the Backend Server
+
+```bash
+# From the backend directory
+cd backend
+
+# Activate virtual environment (if not already activated)
+source venv/bin/activate  # On macOS/Linux
+# or
+venv\Scripts\activate     # On Windows
+
+# Start the FastAPI server
+uvicorn app:app --reload --host 0.0.0.0 --port 8000
+```
+
+The backend will be available at `http://localhost:8000`
+
+### 2. Start the Frontend Development Server
+
+```bash
+# From the frontend directory
+cd frontend
+
+# Start the development server
+npm run dev
+```
+
+The frontend will be available at `http://localhost:3000`
+
+### 3. Access the Application
+
+Open your browser and navigate to `http://localhost:3000`
+
+## Usage
+
+1. **Upload Image**: Click "Choose File" or drag and drop an image of waste
+2. **Analyze**: Click "Classify Waste" to process the image
+3. **View Results**: See the classification, confidence score, and recycling guidance
+4. **Learn**: Read the detailed description and tags for proper disposal
+
+## API Endpoints
+
+### POST /predict
+Upload an image for waste classification.
+
+**Request:**
+- Content-Type: `multipart/form-data`
+- Body: Image file
+
+**Response:**
+```json
+{
+  "prediction": {
+    "label": "plastic",
+    "confidence": 0.85,
+    "tags": ["♻️ Recyclable", "🚯 Non-Biodegradable"],
+    "description": "Plastics are non-biodegradable. Only some types are recyclable."
+  },
+  "all_probabilities": {
+    "biodegradable": 0.02,
+    "cardboard": 0.01,
+    "glass": 0.03,
+    "metal": 0.02,
+    "organic": 0.01,
+    "paper": 0.02,
+    "plastic": 0.85,
+    "trash": 0.04
+  }
+}
+```
+
+## Model Information
+
+The application uses a pre-trained TensorFlow/Keras model that:
+- Accepts 224x224 RGB images
+- Outputs probabilities for 8 waste categories
+- Uses a confidence threshold of 0.7 for reliable predictions
+- Automatically downloads model files on first run
+
+## Development
+
+### Backend Development
+
+```bash
+cd backend
+# Install development dependencies
+pip install -r requirements.txt
+
+# Run with auto-reload
+uvicorn app:app --reload --host 0.0.0.0 --port 8000
+```
+
+### Frontend Development
+
+```bash
+cd frontend
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+```
 
 ## Project Structure
 
 ```
 waste/
-│
 ├── backend/
-│   ├── model/
-│   │   ├── train.py           # Script to train and save your Keras model (.h5)
-│   │   └── waste_model.h5     # Saved Keras model (after training)
-│   ├── app.py                 # FastAPI app to serve predictions
-│   └── requirements.txt       # Backend dependencies
-│
+│   ├── app.py              # FastAPI application
+│   ├── requirements.txt    # Python dependencies
+│   └── model/              # AI model files
 ├── frontend/
-│   ├── public/
-│   │   └── index.html         # Main HTML file
 │   ├── src/
-│   │   ├── App.js             # Main React component
-│   │   └── api.js             # JS to call backend API
-│   └── package.json           # Frontend dependencies
-│
-├── dataset/                   # Place your dataset here
-│   └── (your_dataset_files)
-│
-└── README.md                  # Project overview and setup instructions
+│   │   ├── App.jsx         # Main React component
+│   │   ├── main.jsx        # React entry point
+│   │   └── index.css       # Global styles
+│   ├── package.json        # Node.js dependencies
+│   ├── vite.config.js      # Vite configuration
+│   └── tailwind.config.js  # Tailwind CSS configuration
+├── data/                   # Dataset files
+├── models/                 # Model files
+└── README.md              # This file
 ```
 
-## Setup Instructions
+## Contributing
 
-### 1. Backend (FastAPI)
-- Go to the `backend/` directory.
-- Install dependencies: `pip3 install -r requirements.txt`
-- Train your model: `python3 model/train.py`
-- Start the API server: `uvicorn app:app --reload`
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
 
-### 2. Frontend (React)
-- Go to the `frontend/` directory.
-- Install dependencies: `npm install`
-- Start the development server: `npm start`
+## License
 
-### 3. Dataset
-- Place your dataset files in the `dataset/` directory.
+This project is licensed under the MIT License.
+
+## Support
+
+For issues and questions, please open an issue on the GitHub repository.
 
 ---
 
-## How it Works
-1. User uploads an image via the web interface.
-2. The image is sent to the backend API.
-3. The backend uses the trained model to predict the waste type.
-4. The result is displayed to the user. 
-
----
-
-## Backend API Usage
-
-### POST `/predict`
-- **Description:** Upload an image to classify the type of waste.
-- **Request:**
-  - `file`: Image file (form-data)
-- **Response:**
-  - `prediction.label`: Predicted class label (e.g., 'plastic', 'organic', etc.)
-  - `prediction.confidence`: Confidence score (0 to 1)
-  - `prediction.tags`: List of tags for the class
-  - `prediction.description`: Description of the class
-  - `all_probabilities`: Dictionary of all class probabilities
-
-#### Example Response
-```
-{
-  "prediction": {
-    "label": "plastic",
-    "confidence": 0.87,
-    "tags": ["♻️ Recyclable", "🚯 Non-Biodegradable"],
-    "description": "Plastics are non-biodegradable. Only some types are recyclable."
-  },
-  "all_probabilities": {
-    "biodegradable": 0.01,
-    "cardboard": 0.02,
-    "glass": 0.01,
-    "metal": 0.01,
-    "organic": 0.01,
-    "paper": 0.01,
-    "plastic": 0.87,
-    "trash": 0.06
-  }
-}
-```
-
-### Confidence Threshold
-- If the model's confidence is below **0.6**, the API will return:
-  - `label`: `"uncertain"`
-  - `description`: "The model is not confident in its prediction. The uploaded image may not match any known category."
-
-### Class Order Requirement
-- The `class_names` in the backend **must match the alphabetical order of your dataset folders**. If you change your dataset, update the class order in `app.py` accordingly.
-
----
-
-## Troubleshooting
-- If predictions are incorrect, check that:
-  - The class order in `app.py` matches your training data.
-  - The model file is up to date and matches your dataset.
-  - The image preprocessing (size, normalization) matches your training pipeline.
-- For images outside the training categories, the model will still return a prediction, but it may be labeled as `"uncertain"` if confidence is low.
-
---- 
-
-## 📦 Model & Dataset Downloads
-
-To use the model and dataset, download them from the links below or let the script auto-download:
-
-- 🧠 `model1.keras`: [Download from Google Drive](https://drive.google.com/file/d/1EEVdZIccpaoae4YXqufto06sVf7kgdid/view?usp=sharing)
-- 🧠 `model2.h5`: [Download from Google Drive](https://drive.google.com/file/d/13adspLBtZpSoABp4VkWjBITwWvelft6x/view?usp=sharing)
-- 📁 `dataset.zip`: [Download from Google Drive](https://drive.google.com/file/d/1Ifv5aCXVo0TDHK8K8XsrF77dk7rr83p4/view?usp=sharing) 
+**Note**: The AI model will automatically download required files on first run. Make sure you have a stable internet connection for the initial setup. 
